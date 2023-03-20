@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity{
     Switch sw_activeCustomer;
     ListView lv_customer_list;
 
+    ArrayAdapter customerArrayAdapter;
+    DataBaseHelper dataBaseHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +37,12 @@ public class MainActivity extends AppCompatActivity{
     EditText_Number = findViewById(R.id.EditText_Number);
     sw_activeCustomer = findViewById(R.id.sw_active);
     lv_customer_list = findViewById(R.id.lv_customer_list);
-    ArrayAdapter customerArrayAdapter;
-        // arrayadapter defined below so that it displays as soon as the app is opened
-        customerArrayAdapter = new ArrayAdapter<CustomerModel>(MainActivity.this, android.R.layout.simple_list_item_1, everyone);
-        lv_customer_list.setAdapter(customerArrayAdapter);
-//finding stuff end
+
+    dataBaseHelper = new DataBaseHelper(MainActivity.this);
+
+    //arrayadapter here to show it as soon as app is opened (this has been refactored into a method)
+        ShowCustomersOnListView(dataBaseHelper);
+    //finding stuff end
 
     //SETTING THE CLICK LISTENERS for the add & view all button
         btn_add.setOnClickListener(v -> {
@@ -64,19 +68,31 @@ public class MainActivity extends AppCompatActivity{
             boolean success = dataBaseHelper.addOne(customerModel);
             Toast.makeText(MainActivity.this, "Success = " + success, Toast.LENGTH_SHORT).show();
 
+            //this will update the arrayAdapter AFTER success. remember its been refactored
+            ShowCustomersOnListView(dataBaseHelper);
 
-    });
+
+        });
 
         btn_viewAll.setOnClickListener(v -> {
 
             DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
-            List<CustomerModel> everyone = dataBaseHelper.getEveryone();
-            //Toast.makeText(MainActivity.this, everyone.toString(), Toast.LENGTH_SHORT).show();
-            new ArrayAdapter<CustomerModel>(MainActivity.this, android.R.layout.simple_list_item_1, everyone);
-            lv_customer_list.setAdapter(customerArrayAdapter);
 
-            //below were are making a new arrayadapter - taking from a datasource and displaying as a view
+            ShowCustomersOnListView(dataBaseHelper);
+
+            //Toast.makeText(MainActivity.this, everyone.toString(), Toast.LENGTH_SHORT).show();
+
+            // we have created the associated arrayadapter above
+
+
+
 
         });
     }//leave this one
+
+    //the method below was refactored because it was referenced in three places
+    private void ShowCustomersOnListView(DataBaseHelper dataBaseHelper) {
+        customerArrayAdapter = new ArrayAdapter<CustomerModel>(MainActivity.this, android.R.layout.simple_list_item_1, dataBaseHelper.getEveryone());
+        lv_customer_list.setAdapter(customerArrayAdapter);
+    }
 }

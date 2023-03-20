@@ -69,10 +69,45 @@
     <ListView
         android:id="@+id/lv_customer_list"
         android:layout_width="409dp"
-        android:layout_height="520dp"
+        android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_viewAll" />
+    <!--          find this number below (for querying and returning a number)          -->
+
+    <EditText
+        android:id="@+id/EditText_FindThisNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="number to find"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lv_customer_list" />
+
+    <Button
+        android:id="@+id/btn_FindThisNumber_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="find number "
+        app:layout_constraintEnd_toStartOf="@id/btn_add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_FindThisNumber" />
+
+    <Button
+        android:id="@+id/UselessButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="N/A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_viewAll"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_FindThisNumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
