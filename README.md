@@ -11,7 +11,7 @@ You can run this projects's apk file on any android mobile phone and work on thi
 * Main Screen:
 
 <div>
-  <img src="https://github.com/anubhavshrimal/CalculatorApp/blob/master/screenshorts/device-2016-11-02-205344.png" alt="Main Screen" height="700dp">
+  <img src="https://raw.githubusercontent.com/timnewark/SQLiteDemo/master/Screenshot_20220126-124950.png" alt="Main Screen" height="700dp">
 </div>
 
 ---
