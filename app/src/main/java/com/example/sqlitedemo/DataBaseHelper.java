@@ -58,12 +58,29 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
         //this is the full addOne method
     }
+    public boolean deleteOne(CustomerModel customerModel){
+            // find customer model in the database.  if it is found deleve it and return true.
+            //if it is not found return false.
+        SQLiteDatabase db = this.getWritableDatabase(); //get Instance of DB
+        // will delete so needs to be writable
+        String queryString = "DELETE FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_ID + " = " + customerModel.getId();
 
+        Cursor cursor = db.rawQuery(queryString, null);//cursor variable required
+        if (cursor.moveToFirst()){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
     //below will get all the data from the SQL DB. this will be exe by the viewall button
     public List<CustomerModel> getEveryone(){
         List<CustomerModel> returnList = new ArrayList<>();
         // get data from the database
         String queryString = "SELECT * FROM " + CUSTOMER_TABLE;
+
+
 
 //gets the database
         SQLiteDatabase db= this.getReadableDatabase();
