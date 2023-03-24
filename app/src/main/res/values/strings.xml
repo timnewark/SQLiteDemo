@@ -1,7 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- commenting in XML-->
-    <string name="app_name" tools:ignore="Typos">autoRAMS_v1</string>
+    <string name="app_name" tools:ignore="Typos">autoRAMS_v1 (SQL_DEMO</string>
     <string name="CustomerName">Customer Name</string>
     <string name="CustomerAge">Age</string>
     <string name="ActiveCustomer">Active Customer</string>
+
+
+    <!-- BUTTONS-->
+    <string name="btn_viewAll">VIEW ALL</string>
+    <string name="btn_add">ADD</string>
+    <string name="btn_findNumber">FIND NUMBER</string>
+    <string name="btn_notApplicable">N/A</string>
+
 </resources>

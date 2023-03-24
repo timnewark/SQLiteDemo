@@ -1,5 +1,7 @@
 package com.example.sqlitedemo;
 
+import android.widget.Toast;
+
 public class BridgeModel{
 //declarations go here
     private int asset_id;
@@ -101,6 +103,7 @@ public class BridgeModel{
 
     public String getAsset_OS() {
         return asset_OS;
+
     }
 
     public void setAsset_OS(String asset_OS) {

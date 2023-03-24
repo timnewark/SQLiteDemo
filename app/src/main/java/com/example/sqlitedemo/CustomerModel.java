@@ -1,5 +1,7 @@
 package com.example.sqlitedemo;
 
+
+
 public class CustomerModel{
 
     private int id;
@@ -15,6 +17,7 @@ public class CustomerModel{
         this.name = name;
         this.age = age;
         this.isActive = isActive;
+
     }
         //NON PARAMETERISED CONSTRUCTOR, NOT SURE IF WE WILL USE IT OR NOT
     public CustomerModel(int id) {

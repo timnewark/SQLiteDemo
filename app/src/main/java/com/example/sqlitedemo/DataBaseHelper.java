@@ -3,13 +3,25 @@ package com.example.sqlitedemo;
 
 //handles all the operations
 
+import static android.app.PendingIntent.getActivity;
+import static android.content.Intent.getIntent;
+
+
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +39,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public DataBaseHelper(@Nullable Context context) {
         super(context, "customer.db", null, 1);
     }
+
 
     // this is called the first time a database is accessed. there should be code in here to create a new database
     @Override
@@ -80,8 +93,6 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         // get data from the database
         String queryString = "SELECT * FROM " + CUSTOMER_TABLE;
 
-
-
 //gets the database
         SQLiteDatabase db= this.getReadableDatabase();
 
@@ -102,8 +113,68 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 CustomerModel newCustomer = new CustomerModel(customerID, customerName, customerAge, customerActive);
                 returnList.add(newCustomer);
             }
-            while (cursor.moveToNext());
+            while (cursor.moveToNext()); // or use this: (c!= null)
 
+        }
+        else {//failure. do not add anything to the list
+
+
+        }//end of if
+//in SQLite you have to close the database after use.
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+
+
+    public List<CustomerModel> getEveryone2(){
+        List<CustomerModel> returnList = new ArrayList<>(); //creates new array list (for display) (runs with getEveryone in mainActivity)
+        // get data from the database
+
+        ;SQLiteDatabase db= this.getReadableDatabase();//opens db gets the database
+        //String queryString = "SELECT * FROM CUSTOMER_TABLE where COLUMN_ID LIKE '%"+nameString+"%'";
+
+        String queryString = "SELECT * FROM " + CUSTOMER_TABLE;
+        //String queryString = "SELECT FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_ID + " = " + customerModel.getId();
+       //THIS ONE ABOVE MAYBE
+
+        //String queryString = "SELECT * FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_ID + " = " + arg;
+        //searchNumber varSendToSetter = new searchNumber(); //call the class, name the obj myObj, declare it as new, send param nameString to it
+
+        //String asfd = egs.getSearchNumber();
+
+
+        // cursor is the resultset from a DB query (complex array of items)
+        Cursor cursor = db.rawQuery(queryString, null);
+        Log.i("cursor is " , cursor.toString());
+        //Log.i("ret Get Is  " , returnedFromGetter);
+//here
+
+        //Log.i("nameString is " , nameString);
+
+        //moveToFirst will move to first result in resultset
+        if (cursor.moveToFirst()) {
+
+            // loop through the cursor (resultset) and create new customer objects/then put them into return listnow we will have a do while. So do brackets while brackets
+            do {
+                int customerID = cursor.getInt(0);
+                String customerName = cursor.getString(1);
+                int customerAge = cursor.getInt(2);
+                boolean customerActive = cursor.getInt(3) == 1 ? true : false;//this last bit is a ternary operator
+                //Log.i("namestring is " , nameString);
+
+                for(int i = 0; i<cursor.getCount(); i++)
+                {
+                    if("3".equals(cursor.getString(0)))
+                    {
+                        CustomerModel newCustomer = new CustomerModel(customerID, customerName, customerAge, customerActive);
+                        returnList.add(newCustomer);
+
+
+                    }
+                }
+            }
+            while (cursor.moveToNext());
         }
         else {//failure. do not add anything to the list
 
